@@ -33,16 +33,17 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("开始监听通知...")
+	fmt.Println("begin to listen message...")
 
+	p := conn.Conn()
 	for {
 		// 等待通知
-		notification, err := conn.Conn().WaitForNotification(ctx)
+		notification, err := p.WaitForNotification(ctx)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Printf("收到通知: Channel=%s Pid=%d Payload=%s\n",
+		fmt.Printf("recv message: Channel=%s Pid=%d Payload=%s\n",
 			notification.Channel,
 			notification.PID,
 			notification.Payload)
